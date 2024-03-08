@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float groundCheckDistance;
     private bool isGrounded;
+    private bool canDoubleJump=true;
 
 
     void Start()
@@ -25,21 +26,39 @@ public class Player : MonoBehaviour
     {
         CollisionChecks();
 
-        
-        Move();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (isGrounded)
-                Jump();
-        }
+        Move();
+        InputChecks();
+
+        if (isGrounded)
+            canDoubleJump = true;
 
 
     }
 
-    private void Move()
+    private void InputChecks()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            JumpButton();
+        }
+    }
+
+    private void JumpButton()
+    {
+        if (isGrounded)
+            Jump();
+        else if (canDoubleJump)
+        {
+            canDoubleJump = false;
+            Jump();
+        }
+    }
+
+    private void Move()
+    {
+        
         rb.velocity = new Vector2(moveSpeed * horizontalInput, rb.velocity.y);
     }
 
