@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [Header("PlayerMove")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
+    private bool canMove;
 
     private float horizontalInput;
     private float verticalInput;
@@ -49,7 +50,10 @@ public class Player : MonoBehaviour
         FlipController();
 
         if (isGrounded)
+        {
+            canMove = true;
             canDoubleJump = true;
+        }
 
         if (canWallSlide)
         {
@@ -57,17 +61,12 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
         }
         
-        if (facingDirection * (int)horizontalInput == -1)
-            isTouchingWall = false;
+       
         
 
-        if (!isTouchingWall)
-        {
-            isWallSliding = false;
+        
+
             Move();
-
-        }
-
         
 
 
@@ -82,6 +81,7 @@ public class Player : MonoBehaviour
         anim.SetFloat("yVelocity", rb.velocity.y);
 
         anim.SetBool("isWallSliding", isWallSliding);
+        anim.SetBool("isWallDetected", isTouchingWall);
     }
 
     private void InputChecks()
@@ -102,26 +102,34 @@ public class Player : MonoBehaviour
 
     private void JumpButton()
     {
-        if (isGrounded)
+        if (isWallSliding)
+        {
+            WallJump();
+        }
+
+        else if (isGrounded)
             Jump();
+
         else if (canDoubleJump)
         {
             canDoubleJump = false;
             Jump();
         }
+
+        canWallSlide = false;
+    }
+
+    private void WallJump()
+    {
+        canMove = false;
+        rb.velocity = new Vector2(5 * -facingDirection, jumpForce);
     }
 
     private void Move()
     {
 
-
-        
-
-
-
-
-        rb.velocity = new Vector2(moveSpeed * horizontalInput, rb.velocity.y);
-
+        if(canMove)
+            rb.velocity = new Vector2(moveSpeed * horizontalInput, rb.velocity.y);
 
     }
 
@@ -152,7 +160,10 @@ public class Player : MonoBehaviour
         }
 
         if (!isTouchingWall)
+        {
+            isWallSliding = false;
             canWallSlide = false;
+        }
     }
 
     private void Jump()
