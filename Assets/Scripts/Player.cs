@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    
+
     private Rigidbody2D rb;
     private Animator anim;
 
@@ -12,16 +12,23 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpForce;
 
     private float horizontalInput;
+    private float verticalInput;
 
-    [Header("CollisionChecks")]
+    [Header("GroundCollisionChecks")]
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float groundCheckDistance;
     private bool isGrounded;
-    private bool canDoubleJump=true;
+    private bool canDoubleJump = true;
+
     private bool isFacingRight = true;
     private int facingDirection = 1;
-    
 
+    [Header("WallCollisionChecks")]
+
+    [SerializeField] private float wallCheckDistance;
+    private bool isTouchingWall;
+    private bool canWallSlide;
+    private bool isWallSliding;
 
     void Start()
     {
@@ -37,12 +44,31 @@ public class Player : MonoBehaviour
         CollisionChecks();
 
 
-        Move();
+
         InputChecks();
         FlipController();
 
         if (isGrounded)
             canDoubleJump = true;
+
+        if (canWallSlide)
+        {
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
+        }
+        
+        if (facingDirection * (int)horizontalInput == -1)
+            isTouchingWall = false;
+        
+
+        if (!isTouchingWall)
+        {
+            isWallSliding = false;
+            Move();
+
+        }
+
+        
 
 
     }
@@ -54,12 +80,18 @@ public class Player : MonoBehaviour
 
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("yVelocity", rb.velocity.y);
+
+        anim.SetBool("isWallSliding", isWallSliding);
     }
 
     private void InputChecks()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        
+        verticalInput = Input.GetAxis("Vertical");
+
+        if (verticalInput < 0)
+            canWallSlide = false;
+
 
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -81,8 +113,16 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
+
+
         
+
+
+
+
         rb.velocity = new Vector2(moveSpeed * horizontalInput, rb.velocity.y);
+
+
     }
 
     private void Flip()
@@ -104,6 +144,15 @@ public class Player : MonoBehaviour
     private void CollisionChecks()
     {
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
+        isTouchingWall = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
+
+        if (isTouchingWall && rb.velocity.y < 0)
+        {
+            canWallSlide = true;
+        }
+
+        if (!isTouchingWall)
+            canWallSlide = false;
     }
 
     private void Jump()
@@ -114,6 +163,9 @@ public class Player : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
     }
+
+
 
 }
