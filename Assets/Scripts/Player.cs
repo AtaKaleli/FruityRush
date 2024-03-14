@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [Header("PlayerMove")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private float doubleJumpForce;
+    private float defaultJumpForce;
     private bool canMove;
 
     private float horizontalInput;
@@ -35,6 +37,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        defaultJumpForce = jumpForce;
     }
 
 
@@ -60,14 +63,14 @@ public class Player : MonoBehaviour
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
         }
-        
-       
-        
 
-        
 
-            Move();
-        
+
+
+
+
+        Move();
+
 
 
     }
@@ -105,6 +108,7 @@ public class Player : MonoBehaviour
         if (isWallSliding)
         {
             WallJump();
+            canDoubleJump = true;
         }
 
         else if (isGrounded)
@@ -112,8 +116,11 @@ public class Player : MonoBehaviour
 
         else if (canDoubleJump)
         {
+            canMove = true;
             canDoubleJump = false;
+            jumpForce = doubleJumpForce;
             Jump();
+            jumpForce = defaultJumpForce;
         }
 
         canWallSlide = false;
@@ -128,7 +135,7 @@ public class Player : MonoBehaviour
     private void Move()
     {
 
-        if(canMove)
+        if (canMove)
             rb.velocity = new Vector2(moveSpeed * horizontalInput, rb.velocity.y);
 
     }
