@@ -331,6 +331,7 @@ MonoBehaviour:
   moveSpeed: 8
   jumpForce: 15
   doubleJumpForce: 8
+  bufferJumpTime: 0.1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
