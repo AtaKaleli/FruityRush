@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     [Header("GroundCollisionChecks")]
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float groundCheckDistance;
+    [SerializeField] private Transform enemyCheck;
+    [SerializeField] private float enemyCheckRadius;
+
+
     private bool isGrounded;
     private bool canDoubleJump = true;
 
@@ -37,6 +41,13 @@ public class Player : MonoBehaviour
     private bool canWallSlide;
     private bool isWallSliding;
 
+
+    [Header("KnockedBack Info")]
+    [SerializeField] private Vector2 knockbackDirection;
+    private bool isKnocked;
+    private bool canBeKnocked = true;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,6 +59,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         AnimationControllers();
+        if (isKnocked)
+            return;
 
         CollisionChecks();
 
@@ -55,13 +68,14 @@ public class Player : MonoBehaviour
 
         InputChecks();
         FlipController();
+        CheckForEnemy();
 
         if (isGrounded)
         {
             canMove = true;
             canDoubleJump = true;
 
-            if(bufferJumpCounter > 0)
+            if (bufferJumpCounter > 0)
             {
                 bufferJumpCounter = -1;
                 Jump();
@@ -86,6 +100,24 @@ public class Player : MonoBehaviour
 
     }
 
+    private void CheckForEnemy()
+    {
+        Collider2D[] hitedColliders = Physics2D.OverlapCircleAll(enemyCheck.position, enemyCheckRadius);
+
+        foreach (var enemy in hitedColliders)
+        {
+            if (enemy.GetComponent<Enemy>() != null)
+            {
+                if(rb.velocity.y < 0) //kill enemy only if we are falling
+                {
+                    enemy.GetComponent<Enemy>().Damage();
+                    Jump();
+                }
+                
+            }
+        }
+    }
+
     private void AnimationControllers()
     {
         bool isMoving = rb.velocity.x != 0;
@@ -96,6 +128,8 @@ public class Player : MonoBehaviour
 
         anim.SetBool("isWallSliding", isWallSliding);
         anim.SetBool("isWallDetected", isTouchingWall);
+
+        anim.SetBool("isKnocked", isKnocked);
     }
 
     private void InputChecks()
@@ -142,6 +176,34 @@ public class Player : MonoBehaviour
 
         canWallSlide = false;
     }
+
+
+    public void KnockedBack(Transform damageTransform)
+    {
+        if (!canBeKnocked)
+            return;
+
+        isKnocked = true;
+        canBeKnocked = false;
+
+        #region Define horizontal direction for knockback
+        int hDirection = 0;
+        if (transform.position.x > damageTransform.position.x) //if player's x is bigger than the trap's x (player is at the right of the trap)
+            hDirection = 1;
+        else if (transform.position.x < damageTransform.position.x)
+            hDirection = -1;
+        #endregion
+
+        rb.velocity = new Vector2(knockbackDirection.x * hDirection, knockbackDirection.y);
+        Invoke("CancelKnock", 0.7f);
+    }
+
+    private void CancelKnock()
+    {
+        isKnocked = false;
+        canBeKnocked = true;
+    }
+
 
     private void WallJump()
     {
@@ -199,6 +261,7 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
+        Gizmos.DrawWireSphere(enemyCheck.position, enemyCheckRadius);
     }
 
 

@@ -10,7 +10,8 @@ public class Trap : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            print("Knocked!");
+            Player player = collision.GetComponent<Player>();
+            player.KnockedBack(transform);
         }
     }
 
