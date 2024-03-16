@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
 
     [Header("KnockedBack Info")]
     [SerializeField] private Vector2 knockbackDirection;
+    [SerializeField] private float knockBackProtectionTime;
+
     private bool isKnocked;
     private bool canBeKnocked = true;
 
@@ -196,11 +198,16 @@ public class Player : MonoBehaviour
 
         rb.velocity = new Vector2(knockbackDirection.x * hDirection, knockbackDirection.y);
         Invoke("CancelKnock", 0.7f);
+        Invoke("AllowKnockBack", knockBackProtectionTime);
     }
 
     private void CancelKnock()
     {
         isKnocked = false;
+        
+    }
+    private void AllowKnockBack()
+    {
         canBeKnocked = true;
     }
 
