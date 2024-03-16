@@ -11,9 +11,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float doubleJumpForce;
-    [SerializeField] private float bufferJumpTime;
+    [SerializeField] private float bufferJumpTime;// make player jump even s/he did not touched grounded yet for a specific time before
     private float bufferJumpCounter;
-    
+    [SerializeField] private float cayoteJumpTime;//allow jump for a few sec even if player on air
+    private float cayoteJumpCounter;
+    private bool canHaveCayoteJump;
+
+
     private float defaultJumpForce;
     private bool canMove;
 
@@ -67,6 +71,7 @@ public class Player : MonoBehaviour
         CollisionChecks();
 
         bufferJumpCounter -= Time.deltaTime;
+        cayoteJumpCounter -= Time.deltaTime;
 
         InputChecks();
         FlipController();
@@ -82,7 +87,16 @@ public class Player : MonoBehaviour
                 bufferJumpCounter = -1;
                 Jump();
             }
+            canHaveCayoteJump = true;
+        }
+        else
+        {
+            if (canHaveCayoteJump)
+            {
 
+                canHaveCayoteJump = false;
+                cayoteJumpCounter = cayoteJumpTime;
+            }
         }
 
         if (canWallSlide)
@@ -110,12 +124,12 @@ public class Player : MonoBehaviour
         {
             if (enemy.GetComponent<Enemy>() != null)
             {
-                if(rb.velocity.y < 0) //kill enemy only if we are falling
+                if (rb.velocity.y < 0) //kill enemy only if we are falling
                 {
                     enemy.GetComponent<Enemy>().Damage();
                     Jump();
                 }
-                
+
             }
         }
     }
@@ -164,7 +178,7 @@ public class Player : MonoBehaviour
             canDoubleJump = true;
         }
 
-        else if (isGrounded)
+        else if (isGrounded || cayoteJumpCounter > 0)
             Jump();
 
         else if (canDoubleJump)
@@ -204,7 +218,7 @@ public class Player : MonoBehaviour
     private void CancelKnock()
     {
         isKnocked = false;
-        
+
     }
     private void AllowKnockBack()
     {
