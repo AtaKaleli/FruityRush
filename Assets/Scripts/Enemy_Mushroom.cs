@@ -9,7 +9,7 @@ public class Enemy_Mushroom : Enemy
     [SerializeField] private float idleTime;
                      private float idleCounter;
 
-    private bool isMoving;
+    
 
 
     protected override void Start()
@@ -21,21 +21,21 @@ public class Enemy_Mushroom : Enemy
     {
         idleCounter -= Time.deltaTime;
         if (idleCounter <= 0)
-        {
-            isMoving = true;
             rb.velocity = new Vector2(speed * facingDirection, rb.velocity.y);
-        }
+        else
+            rb.velocity = new Vector2(0, 0);
 
-        CollisionChecks();
+        
 
         if (wallDetected || !groundDetected)
         {
             idleCounter = idleTime;// make the mushroom wait one second after it flipped
             Flip();
-            isMoving = false;
+            
         }
 
-        anim.SetBool("isMoving", isMoving);
+        CollisionChecks();
+        anim.SetFloat("xVelocity", rb.velocity.x);
 
     }
 }

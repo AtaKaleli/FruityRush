@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
+
+
     public void Damage()
     {
         if(!invincible)
