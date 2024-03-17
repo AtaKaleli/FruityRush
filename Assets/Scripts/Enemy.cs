@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     protected bool wallDetected;
     protected bool groundDetected;
 
+    public bool invincible; // make enemy invincible so that player cant kill it when true
 
     protected virtual void Start()
     {
@@ -28,7 +29,8 @@ public class Enemy : MonoBehaviour
     }
     public void Damage()
     {
-        anim.SetTrigger("gotHit");
+        if(!invincible)
+            anim.SetTrigger("gotHit");
     }
 
     public void DestroyMe()

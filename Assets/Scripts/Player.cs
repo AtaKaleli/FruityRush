@@ -124,9 +124,16 @@ public class Player : MonoBehaviour
         {
             if (enemy.GetComponent<Enemy>() != null)
             {
-                if (rb.velocity.y < 0) //kill enemy only if we are falling
+
+                Enemy newEnemy = enemy.GetComponent<Enemy>(); // temp enemy that can be used if enemy is found
+
+
+                if (newEnemy.invincible)
+                    return; //if enemy is invincible, then cant make damage to it
+
+                if (rb.velocity.y < 0) //kill enemy only if we are falling and enemy is not invincible
                 {
-                    enemy.GetComponent<Enemy>().Damage();
+                    newEnemy.Damage();
                     Jump();
                 }
 
