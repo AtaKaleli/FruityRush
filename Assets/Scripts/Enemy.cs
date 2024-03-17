@@ -20,7 +20,8 @@ public class Enemy : MonoBehaviour
     protected bool wallDetected;
     protected bool groundDetected;
 
-    public bool invincible; // make enemy invincible so that player cant kill it when true
+    //hideInInspector hides the variable in the inspector
+    [HideInInspector]public bool invincible; // make enemy invincible so that player cant kill it when true
 
     [Header("Move Info")]
     [SerializeField] protected float speed;
