@@ -686,8 +686,14 @@ MonoBehaviour:
   wallCheckDistance: 1.5
   groundCheck: {fileID: 1745215253}
   wallCheck: {fileID: 707170982}
+  invincible: 1
   speed: 2
   idleTime: 1
+  aggroSpeed: 6
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 256
+  shockTime: 1
 --- !u!1 &1608796822
 GameObject:
   m_ObjectHideFlags: 0

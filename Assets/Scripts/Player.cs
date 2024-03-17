@@ -134,6 +134,7 @@ public class Player : MonoBehaviour
                 if (rb.velocity.y < 0) //kill enemy only if we are falling and enemy is not invincible
                 {
                     newEnemy.Damage();
+                    
                     Jump();
                 }
 
