@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Damage()
+    public virtual void Damage()
     {
         if(!invincible)
             anim.SetTrigger("gotHit");
