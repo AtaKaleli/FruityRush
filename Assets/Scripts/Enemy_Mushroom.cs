@@ -20,7 +20,6 @@ public class Enemy_Mushroom : Enemy
     private void Update()
     {
         idleCounter -= Time.deltaTime;
-
         if (idleCounter <= 0)
         {
             isMoving = true;
