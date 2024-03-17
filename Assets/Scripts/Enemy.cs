@@ -22,12 +22,35 @@ public class Enemy : MonoBehaviour
 
     public bool invincible; // make enemy invincible so that player cant kill it when true
 
+    [Header("Move Info")]
+    [SerializeField] protected float speed;
+    [SerializeField] protected float idleTime;
+    protected float idleCounter;
+
+
     protected virtual void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
 
+    protected virtual void WalkAround()
+    {
+        idleCounter -= Time.deltaTime;
+        if (idleCounter <= 0)
+            rb.velocity = new Vector2(speed * facingDirection, rb.velocity.y);
+        else
+            rb.velocity = new Vector2(0, 0);
+
+
+
+        if (wallDetected || !groundDetected)
+        {
+            idleCounter = idleTime;// make the mushroom wait one second after it flipped
+            Flip();
+
+        }
+    }
 
     public void Damage()
     {

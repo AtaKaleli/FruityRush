@@ -5,10 +5,7 @@ using UnityEngine;
 public class Enemy_Rhino : Enemy
 {
 
-    [Header("Move Info")]
-    [SerializeField] private float speed;
-    [SerializeField] private float idleTime;
-    private float idleCounter;
+    
 
     [Header("Aggro Info")]
     [SerializeField] private float aggroSpeed;
@@ -41,21 +38,7 @@ public class Enemy_Rhino : Enemy
 
         if (!isAggressive)
         {
-            idleCounter -= Time.deltaTime;
-
-            if (idleCounter < 0)
-            {
-                rb.velocity = new Vector2(speed * facingDirection, rb.velocity.y);
-            }
-            else
-                rb.velocity = new Vector2(0, 0);
-
-
-            if (wallDetected || !groundDetected)
-            {
-                idleCounter = idleTime;// make the mushroom wait one second after it flipped
-                Flip();
-            }
+            WalkAround();
         }
         else
         {
