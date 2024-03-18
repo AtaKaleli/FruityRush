@@ -7,7 +7,7 @@ public class Enemy_Radish : Enemy
     [SerializeField] private float groundCheckAboveDistance;
     [SerializeField] private float groundCheckBelowDistance;
     private bool groundAboveDetected;
-    private RaycastHit2D groundBelowDetected;
+    private bool groundBelowDetected;
     private bool isAggressive;
 
     [SerializeField] private float aggroTime;
@@ -80,8 +80,8 @@ public class Enemy_Radish : Enemy
     {
         base.OnDrawGizmos();
 
-        //Gizmos.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y + groundCheckAboveDistance));
-        //Gizmos.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y - groundCheckBelowDistance));
+        Gizmos.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y + groundCheckAboveDistance));
+        Gizmos.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y - groundCheckBelowDistance));
 
 
     }
