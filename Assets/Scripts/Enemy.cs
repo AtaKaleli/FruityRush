@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float speed;
     [SerializeField] protected float idleTime;
     protected float idleCounter;
-
+    protected bool isAggressive;
 
     protected virtual void Start()
     {

@@ -11,7 +11,7 @@ public class Enemy_Rhino : Enemy
     [SerializeField] private float aggroSpeed;
     [SerializeField] private LayerMask whatIsPlayer;
     private bool playerDetected;
-    private bool isAggressive;
+    
 
     [Header("ShockTimer")]
     [SerializeField] private float shockTime;

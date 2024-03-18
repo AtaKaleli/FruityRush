@@ -8,7 +8,7 @@ public class Enemy_Radish : Enemy
     [SerializeField] private float groundCheckBelowDistance;
     private bool groundAboveDetected;
     private bool groundBelowDetected;
-    private bool isAggressive;
+    
 
     [SerializeField] private float aggroTime;
                      private float aggroTimeCounter;
