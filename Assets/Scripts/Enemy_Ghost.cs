@@ -10,11 +10,18 @@ public class Enemy_Ghost : Enemy
                      private float activeTimeCounter = 4f;
 
     private Transform player;
+    private SpriteRenderer sr;
+
+    [SerializeField] private float[] xOffset;
 
     protected override void Start()
     {
         base.Start();
         player = GameObject.Find("Player").transform;
+        sr = GetComponent<SpriteRenderer>();
+
+        isAggressive = true;
+        
         
     }
 
@@ -39,6 +46,7 @@ public class Enemy_Ghost : Enemy
         }
         if (activeTimeCounter < 0 && idleCounter < 0 && !isAggressive)
         {
+            ChoosePosition();
             anim.SetTrigger("appear");
             isAggressive = true;
             activeTimeCounter = activeTime;
@@ -46,14 +54,36 @@ public class Enemy_Ghost : Enemy
         }
 
 
-
+        if (facingDirection == -1 && transform.position.x < player.transform.position.x)
+            Flip();
+        else if (facingDirection == 1 && transform.position.x > player.transform.position.x)
+            Flip();
 
     }
 
-    public override void Damage()
+    private void ChoosePosition()
     {
-        base.Damage();
+        float randomY = Random.Range(-7, 7);
+        float randomX = xOffset[Random.Range(0, xOffset.Length)];
+
+        transform.position = new Vector2(player.transform.position.x + randomX, player.transform.position.y + randomY);
     }
 
 
+    public void Disappear()
+    {
+        sr.color = Color.clear;
+        invincible = true;
+    }
+    public void Appear()
+    {
+        sr.color = Color.white;
+        invincible = false;
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(isAggressive)
+            base.OnTriggerEnter2D(collision);
+    }
 }
