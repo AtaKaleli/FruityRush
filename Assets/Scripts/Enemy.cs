@@ -61,6 +61,7 @@ public class Enemy : MonoBehaviour
 
     public void DestroyMe()
     {
+        rb.velocity = new Vector2(0, 0);
         Destroy(gameObject);
     }
 
