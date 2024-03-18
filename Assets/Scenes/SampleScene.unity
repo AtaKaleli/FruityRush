@@ -135,6 +135,8 @@ GameObject:
   - component: {fileID: 103027803}
   - component: {fileID: 103027802}
   - component: {fileID: 103027801}
+  - component: {fileID: 103027805}
+  - component: {fileID: 103027806}
   m_Layer: 0
   m_Name: Enemy_BlueBird
   m_TagString: Untagged
@@ -249,6 +251,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &103027805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103027800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3491070adbb3cba489d7a1702a7df12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  groundCheckDistance: 0
+  wallCheckDistance: 0
+  groundCheck: {fileID: 967889058}
+  wallCheck: {fileID: 937272641}
+  invincible: 0
+  speed: 0
+  idleTime: 0
+--- !u!95 &103027806
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103027800}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fbfb64a8991d06e41a3fcd8b216a94aa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &157453180
 GameObject:
   m_ObjectHideFlags: 0
