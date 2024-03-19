@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Danger
 {
 
     protected Animator anim;
@@ -72,14 +72,7 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<Player>() != null)
-        {
-            Player player = collision.GetComponent<Player>();
-            player.KnockedBack(transform);
-        }
-    }
+    
 
     protected virtual void Flip()
     {

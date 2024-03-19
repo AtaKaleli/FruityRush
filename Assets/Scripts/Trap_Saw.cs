@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Trap_Saw : Trap
+public class Trap_Saw : Danger
 {
 
     private Animator anim;
