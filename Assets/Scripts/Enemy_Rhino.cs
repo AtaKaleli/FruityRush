@@ -9,8 +9,8 @@ public class Enemy_Rhino : Enemy
 
     [Header("Aggro Info")]
     [SerializeField] private float aggroSpeed;
-    [SerializeField] private LayerMask whatIsPlayer;
-    private bool playerDetected;
+    
+    
     
 
     [Header("ShockTimer")]
@@ -32,7 +32,7 @@ public class Enemy_Rhino : Enemy
     void Update()
     {
 
-        playerDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, 100, whatIsPlayer); // this way rhino can detect player
+        
         if (playerDetected)
             isAggressive = true;
 

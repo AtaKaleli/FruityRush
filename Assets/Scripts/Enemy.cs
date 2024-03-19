@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
 
     protected bool wallDetected;
     protected bool groundDetected;
+    protected bool playerDetected;
+    [SerializeField] protected LayerMask whatIsPlayer;
 
     //hideInInspector hides the variable in the inspector
     [HideInInspector]public bool invincible; // make enemy invincible so that player cant kill it when true
@@ -84,6 +86,7 @@ public class Enemy : MonoBehaviour
     {
         groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
         wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
+        playerDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, 100, whatIsPlayer); // this way rhino can detect player
     }
 
     protected virtual void OnDrawGizmos()
