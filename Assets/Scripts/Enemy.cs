@@ -21,6 +21,7 @@ public class Enemy : Danger
     protected bool groundDetected;
     protected RaycastHit2D playerDetected;
     [SerializeField] private LayerMask whatIsPlayer;
+    [SerializeField] private float playerDetectionDistance;
 
     //hideInInspector hides the variable in the inspector
     [HideInInspector]public bool invincible; // make enemy invincible so that player cant kill it when true
@@ -84,7 +85,7 @@ public class Enemy : Danger
     {
         groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
         wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
-        playerDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, 100, whatIsPlayer); // this way rhino can detect player
+        playerDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDirection, playerDetectionDistance, whatIsPlayer); // this way rhino can detect player
     }
 
     protected virtual void OnDrawGizmos()
@@ -92,7 +93,11 @@ public class Enemy : Danger
         if(groundCheck != null)
             Gizmos.DrawLine(groundCheck.position, new Vector2(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
         if(wallCheck != null)
+        {
             Gizmos.DrawLine(wallCheck.position, new Vector2(wallCheck.position.x + wallCheckDistance * facingDirection, wallCheck.position.y));
+            Gizmos.DrawLine(wallCheck.position, new Vector2(wallCheck.position.x + playerDetected.distance * facingDirection, wallCheck.position.y));
+
+        }
 
     }
 

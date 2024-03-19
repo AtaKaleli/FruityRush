@@ -31,6 +31,8 @@ public class EnemyPlant : Enemy
             return;
 
         bool playerDetection = playerDetected.collider.GetComponent<Player>() != null;
+       
+
         if (idleCounter<0 && playerDetection)
         {
             idleCounter = idleTime;
