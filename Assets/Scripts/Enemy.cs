@@ -19,8 +19,8 @@ public class Enemy : MonoBehaviour
 
     protected bool wallDetected;
     protected bool groundDetected;
-    protected bool playerDetected;
-    [SerializeField] protected LayerMask whatIsPlayer;
+    protected RaycastHit2D playerDetected;
+    [SerializeField] private LayerMask whatIsPlayer;
 
     //hideInInspector hides the variable in the inspector
     [HideInInspector]public bool invincible; // make enemy invincible so that player cant kill it when true
@@ -35,6 +35,11 @@ public class Enemy : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
+        if (groundCheck == null)
+            groundCheck = transform;
+        if (wallCheck == null)
+            wallCheck = transform;
     }
 
     protected virtual void WalkAround()

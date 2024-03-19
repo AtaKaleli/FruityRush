@@ -2,17 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPlant : MonoBehaviour
+public class EnemyPlant : Enemy
 {
-    // Start is called before the first frame update
-    void Start()
+
+
+    protected override void Start()
     {
-        
+        base.Start();
     }
 
-    // Update is called once per frame
+
+    
     void Update()
     {
-        
+        CollisionChecks();
+        idleCounter -= Time.deltaTime;
+
+        if (!playerDetected)
+            return;
+
+        bool playerDetection = playerDetected.collider.GetComponent<Player>() != null;
+        if (idleCounter<0 && playerDetection)
+        {
+            idleCounter = idleTime;
+            anim.SetTrigger("attack");
+        }
+    }
+
+
+    private void AttackEvent()
+    {
+        print("attack" + playerDetected.collider.name);
     }
 }
