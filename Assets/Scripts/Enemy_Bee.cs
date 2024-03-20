@@ -62,10 +62,10 @@ public class Enemy_Bee : Enemy
 
             Vector2 newPosition = new Vector2(player.transform.position.x, player.transform.position.y + yOffset);
 
-            float xDiff = transform.position.x - player.position.x; // when the bee and player x is less than .15f in abs, then bee shoots
 
             transform.position = Vector2.MoveTowards(transform.position, newPosition, speed * Time.deltaTime);
 
+            float xDiff = transform.position.x - player.position.x; // when the bee and player x is less than .15f in abs, then bee shoots
             if (Mathf.Abs(xDiff) < .15f)
             {
                 anim.SetTrigger("attack");
