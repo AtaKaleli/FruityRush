@@ -19,11 +19,14 @@ public class Enemy_Bat : Enemy
 
     private float defaultSpeed;
 
+    
+
     protected override void Start()
     {
         base.Start();
         player = GameObject.Find("Player").transform;
         defaultSpeed = speed;
+        destination = idlePoints[0].position;
     }
 
     void Update()
@@ -75,4 +78,13 @@ public class Enemy_Bat : Enemy
 
 
     }
+
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        Gizmos.DrawWireSphere(transform.position, checkRadius);
+    }
+
+    
 }

@@ -10,6 +10,7 @@ public class Danger : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
+            
             Player player = collision.GetComponent<Player>();
             player.KnockedBack(transform);
         }
