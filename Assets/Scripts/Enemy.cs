@@ -8,7 +8,7 @@ public class Enemy : Danger
     protected Animator anim;
     protected Rigidbody2D rb;
 
-    protected int facingDirection = -1;
+    protected int facingDirection = -1; // facing direction of enemies, 1 means face right, -1 means face left
 
     [Header("CollisionChecks")]
     [SerializeField] protected LayerMask whatIsGround;
@@ -17,11 +17,13 @@ public class Enemy : Danger
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected Transform wallCheck;
 
+    [Header("CollisionDetections")]
+    [SerializeField] private LayerMask whatIsPlayer;
+    [SerializeField] private float playerDetectionDistance;
     protected bool wallDetected;
     protected bool groundDetected;
     protected RaycastHit2D playerDetected;
-    [SerializeField] private LayerMask whatIsPlayer;
-    [SerializeField] private float playerDetectionDistance;
+
 
     //hideInInspector hides the variable in the inspector
     [HideInInspector]public bool invincible; // make enemy invincible so that player cant kill it when true
@@ -53,21 +55,21 @@ public class Enemy : Danger
 
 
 
-        if (wallDetected || !groundDetected)
+        if (wallDetected || !groundDetected) // if wall detected, or ground is not detected, then go to idleTime
         {
-            idleCounter = idleTime;// make the mushroom wait one second after it flipped
+            idleCounter = idleTime;// make the enemy  wait idleTime seconds then  flip it
             Flip();
 
         }
     }
 
-    public virtual void Damage()
+    public virtual void Damage() // if enemy is not invincible, then this means player can damage the enemy
     {
         if(!invincible)
             anim.SetTrigger("gotHit");
     }
 
-    public void DestroyMe()
+    public void DestroyMe() // If enemy is destroyed, set the velocity of it to 0 then destroy it. Set this function at the end of the hit animations of enemies.
     {
         rb.velocity = new Vector2(0, 0);
         Destroy(gameObject);
@@ -75,20 +77,20 @@ public class Enemy : Danger
 
     
 
-    protected virtual void Flip()
+    protected virtual void Flip() // basically flips the enemy. Each time it is called, it rotates the enemy using transform.Rotate function
     {
         facingDirection = facingDirection * -1;
         transform.Rotate(0, 180, 0);
     }
 
-    protected virtual void CollisionChecks()
+    protected virtual void CollisionChecks() // checks collision for enemies.
     {
         groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
         wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
         playerDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDirection, playerDetectionDistance, whatIsPlayer); // this way rhino can detect player
     }
 
-    protected virtual void OnDrawGizmos()
+    protected virtual void OnDrawGizmos() // draes gizmos lines for better vision
     {
         if(groundCheck != null)
             Gizmos.DrawLine(groundCheck.position, new Vector2(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
