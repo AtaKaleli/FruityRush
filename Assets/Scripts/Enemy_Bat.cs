@@ -75,10 +75,17 @@ public class Enemy_Bat : Enemy
 
         anim.SetBool("canBeAggressive", canBeAggressive);
         anim.SetFloat("speed", speed);
-
+        FlipController();
 
     }
 
+    private void FlipController()
+    {
+        if (facingDirection == -1 && transform.position.x < destination.x)
+            Flip();
+        else if (facingDirection == 1 && transform.position.x > destination.x)
+            Flip();
+    }
 
     protected override void OnDrawGizmos()
     {

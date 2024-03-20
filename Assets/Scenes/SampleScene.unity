@@ -568,7 +568,7 @@ MonoBehaviour:
     m_Bits: 256
   playerDetectionDistance: 0
   invincible: 0
-  speed: 8
+  speed: 12
   idleTime: 2
   idlePoints:
   - {fileID: 1585204023}
