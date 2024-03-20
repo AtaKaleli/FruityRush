@@ -432,6 +432,7 @@ GameObject:
   - component: {fileID: 914184328}
   - component: {fileID: 914184327}
   - component: {fileID: 914184329}
+  - component: {fileID: 914184330}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -542,6 +543,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &914184330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914184325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f765301b1bb4b4c8e758cd9e21519d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000109087
 GameObject:
   m_ObjectHideFlags: 0
