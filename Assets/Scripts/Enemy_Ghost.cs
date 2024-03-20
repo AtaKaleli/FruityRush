@@ -84,7 +84,7 @@ public class Enemy_Ghost : Enemy
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if(isAggressive)
+        if(isAggressive) 
             base.OnTriggerEnter2D(collision);
     }
 }

@@ -14,7 +14,7 @@ public class Enemy_Mushroom : Enemy
         base.Start();
     }
 
-    private void Update()
+    private void Update() // just walk around and if face with walls, flip
     {
 
         WalkAround();
