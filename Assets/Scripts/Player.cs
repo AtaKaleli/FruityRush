@@ -58,14 +58,14 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        defaultJumpForce = jumpForce;
+        defaultJumpForce = jumpForce; // default jump force equals to jump force.
     }
 
 
     void Update()
     {
         AnimationControllers();
-        if (isKnocked)
+        if (isKnocked) // if player is knocked, which means takes hit from enemy, then return, so nothing will happen
             return;
 
         CollisionChecks();
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
         FlipController();
         CheckForEnemy();
 
-        if (isGrounded)
+        if (isGrounded) // if player is on the ground, then he can move and has doubleJump to use.
         {
             canMove = true;
             canDoubleJump = true;
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
             }
             canHaveCayoteJump = true;
         }
-        else
+        else //if not, then he can do cayote jump
         {
             if (canHaveCayoteJump)
             {
@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (canWallSlide)
+        if (canWallSlide) // player can wall slide on the wall with a smaller velocity
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
@@ -116,10 +116,15 @@ public class Player : MonoBehaviour
 
     }
 
-    private void CheckForEnemy()
+    private void CheckForEnemy() // this function checks for enemies
     {
+        // create a collider2d array, which takes enemyCheck as a transform, and enemyCheckRadius as a radius
+        // then in the inspector, place this circle to feet of the player, so that he can kill enemies by jumping their head
+        // circle is visualized by gizmos in the gizmoz func
+
         Collider2D[] hitedColliders = Physics2D.OverlapCircleAll(enemyCheck.position, enemyCheckRadius);
 
+        //look for each collider, if the collider itself has an enemy script, then this means we collided with an enemy
         foreach (var enemy in hitedColliders)
         {
             if (enemy.GetComponent<Enemy>() != null)
@@ -133,8 +138,10 @@ public class Player : MonoBehaviour
 
                 if (rb.velocity.y < 0) //kill enemy only if we are falling and enemy is not invincible
                 {
-                    newEnemy.Damage();
-                    
+                    newEnemy.Damage(); // call the damage function of the enemy, which triggers the gotHit animation 
+                    //after gotHit animations ends, the destroyMe func will be called by addition of event to the end of hit animation
+
+                    //after killing an enemy, make player jump.
                     Jump();
                 }
 
@@ -142,7 +149,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void AnimationControllers()
+    private void AnimationControllers() // control the animations of player
     {
         bool isMoving = rb.velocity.x != 0;
         anim.SetBool("isMoving", isMoving);
@@ -156,17 +163,17 @@ public class Player : MonoBehaviour
         anim.SetBool("isKnocked", isKnocked);
     }
 
-    private void InputChecks()
+    private void InputChecks() // take the x and y dir. inputs
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
-        if (verticalInput < 0)
+        if (verticalInput < 0) // if player pressed S , which means go down, then the wall sliding is interrupted
             canWallSlide = false;
 
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) // if keycode is space, then jump
         {
             JumpButton();
         }
@@ -175,27 +182,27 @@ public class Player : MonoBehaviour
     private void JumpButton()
     {
 
-        if (!isGrounded)
+        if (!isGrounded) // if player is not grounded, then set a bufferJump counter so player has this amount of time to make a jump
         {
             bufferJumpCounter = bufferJumpTime;
         }
 
-        if (isWallSliding)
+        if (isWallSliding) // if player makes a wall slide, then call WallJump and allow them to make a doubleJump
         {
             WallJump();
             canDoubleJump = true;
         }
 
-        else if (isGrounded || cayoteJumpCounter > 0)
+        else if (isGrounded || cayoteJumpCounter > 0) // if player on the ground or cayoteJump is grater then 0, then he can jump
             Jump();
 
-        else if (canDoubleJump)
+        else if (canDoubleJump) // allow player to make double jump
         {
             canMove = true;
-            canDoubleJump = false;
-            jumpForce = doubleJumpForce;
-            Jump();
-            jumpForce = defaultJumpForce;
+            canDoubleJump = false; // set the doubleJump to false after enteting this functions
+            jumpForce = doubleJumpForce; // set jump for to doubleJump force
+            Jump(); // then jump
+            jumpForce = defaultJumpForce; // and then set it to default jumpForce
         }
 
         canWallSlide = false;
@@ -204,13 +211,14 @@ public class Player : MonoBehaviour
 
     public void KnockedBack(Transform damageTransform)
     {
-        if (!canBeKnocked)
+        if (!canBeKnocked) // If player cant be knocked, then return
             return;
 
-        isKnocked = true;
+        isKnocked = true; //after entering this fucntion, make isKnocked true and canBeKnocked false
         canBeKnocked = false;
 
-        #region Define horizontal direction for knockback
+        //those are the knock back directions for player after they got damage 
+        #region Define horizontal direction for knockback 
         int hDirection = 0;
         if (transform.position.x > damageTransform.position.x) //if player's x is bigger than the trap's x (player is at the right of the trap)
             hDirection = 1;
@@ -218,9 +226,9 @@ public class Player : MonoBehaviour
             hDirection = -1;
         #endregion
 
-        rb.velocity = new Vector2(knockbackDirection.x * hDirection, knockbackDirection.y);
-        Invoke("CancelKnock", 0.7f);
-        Invoke("AllowKnockBack", knockBackProtectionTime);
+        rb.velocity = new Vector2(knockbackDirection.x * hDirection, knockbackDirection.y); // set the new position of the player based on knockback direction
+        Invoke("CancelKnock", 0.7f); // after a certain amount of time, make isKnocked false
+        Invoke("AllowKnockBack", knockBackProtectionTime); // after a certan amount of protection time, make player can be knockable.so player is not knocked again and again
     }
 
     private void CancelKnock()
@@ -234,13 +242,13 @@ public class Player : MonoBehaviour
     }
 
 
-    private void WallJump()
+    private void WallJump()// when player making wall jump, do not allow he to move
     {
         canMove = false;
-        rb.velocity = new Vector2(5 * -facingDirection, jumpForce);
+        rb.velocity = new Vector2(5 * -facingDirection, jumpForce);// set the velocity of wall jump
     }
 
-    private void Move()
+    private void Move() // player move function
     {
 
         if (canMove)
@@ -248,14 +256,14 @@ public class Player : MonoBehaviour
 
     }
 
-    private void Flip()
+    private void Flip() // flip the player. change the facing direction every time we get in this func. also rotate the player by 180 deg.
     {
         facingDirection = facingDirection * -1;
         isFacingRight = !isFacingRight;
         transform.Rotate(0, 180, 0);
     }
 
-    private void FlipController()
+    private void FlipController() //controls the flip of the player
     {
         if (isFacingRight && rb.velocity.x < 0)
             Flip();
@@ -266,27 +274,27 @@ public class Player : MonoBehaviour
 
     private void CollisionChecks()
     {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
-        isTouchingWall = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround); // raycasts the ground so we can get player is on the ground
+        isTouchingWall = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);// raycasts the ground so we can get player is touching to wall
 
-        if (isTouchingWall && rb.velocity.y < 0)
+        if (isTouchingWall && rb.velocity.y < 0) // if player is touching wall and he is going down, then allow he to do wallSlide
         {
             canWallSlide = true;
         }
 
-        if (!isTouchingWall)
+        if (!isTouchingWall) // is he is not touching wall, can set the wall slide parameters to false
         {
             isWallSliding = false;
             canWallSlide = false;
         }
     }
 
-    private void Jump()
+    private void Jump() // simple jump function
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos() // draws gizmos lines for better visualization
     {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + wallCheckDistance * facingDirection, transform.position.y));
