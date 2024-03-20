@@ -32,12 +32,12 @@ public class Enemy_BlueBird : Enemy
     {
         CollisionChecks();
 
-        if (groundAboveDetected)
+        if (groundAboveDetected) // if groundabove detected,then set the fly force to fly down force, which is a smaller value compared with fly up force
             flyingForce = flyingDownForce;
         else if (groundBelowDetected)
             flyingForce = flyingUpForce;
 
-        if (wallDetected)
+        if (wallDetected) // if wall detected, flip the bird
             Flip();
     }
 
@@ -46,12 +46,12 @@ public class Enemy_BlueBird : Enemy
         base.Damage();
     }
 
-    public void FlyUpEvent()
+    public void FlyUpEvent() // fly up the bird
     {
         rb.velocity = new Vector2(speed* facingDirection, flyingForce);
     }
 
-    protected override void CollisionChecks()
+    protected override void CollisionChecks() //collision checks plus check for below and above ground
     {
         base.CollisionChecks();
         groundAboveDetected = Physics2D.Raycast(transform.position, Vector2.up, groundCheckAboveDistance, whatIsGround);
@@ -60,7 +60,7 @@ public class Enemy_BlueBird : Enemy
 
     }
 
-    protected override void OnDrawGizmos()
+    protected override void OnDrawGizmos() // gizmos
     {
         base.OnDrawGizmos();
 
