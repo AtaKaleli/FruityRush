@@ -53,7 +53,7 @@ public class Enemy_Radish : Enemy
         anim.SetBool("isAggressive", isAggressive);
     }
 
-    public override void Damage()
+    public override void Damage() // take damage if it is aggressive, else, make him fall to ground
     {
         if (!isAggressive)
         {
@@ -67,7 +67,7 @@ public class Enemy_Radish : Enemy
 
   
 
-    protected override void CollisionChecks()
+    protected override void CollisionChecks() // check collisions plus the above and below ground
     {
         base.CollisionChecks();
         groundAboveDetected = Physics2D.Raycast(transform.position, Vector2.up, groundCheckAboveDistance, whatIsGround);
@@ -76,7 +76,7 @@ public class Enemy_Radish : Enemy
 
     }
 
-    protected override void OnDrawGizmos()
+    protected override void OnDrawGizmos() // gizmos lines
     {
         base.OnDrawGizmos();
 
