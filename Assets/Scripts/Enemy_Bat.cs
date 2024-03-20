@@ -6,14 +6,14 @@ public class Enemy_Bat : Enemy
 {
 
     [Header("Bat Info")]
-    [SerializeField] private Transform[] idlePoints;
+    [SerializeField] private Transform[] idlePoints; // points that bat will go in its idle time
 
     private Vector2 destination;
     private bool canBeAggressive = true;
     private bool isPlayerDetected;
     private Transform player;
 
-    [Header("Player Detection")]
+    [Header("Player Detection")] // player detection 
     [SerializeField] private float checkRadius;
     [SerializeField] private LayerMask whoIsPlayer;
 
@@ -32,41 +32,41 @@ public class Enemy_Bat : Enemy
     void Update()
     {
 
-        idleCounter -= Time.deltaTime;
+        idleCounter -= Time.deltaTime; // if bat is on its idle time, then return, do nothing
         if (idleCounter > 0)
             return;
 
 
-        isPlayerDetected = Physics2D.OverlapCircle(transform.position, checkRadius, whoIsPlayer);
+        isPlayerDetected = Physics2D.OverlapCircle(transform.position, checkRadius, whoIsPlayer); // detect player using phsicss2d.overlapCircle
 
-        if(isPlayerDetected && !isAggressive && canBeAggressive)
+        if(isPlayerDetected && !isAggressive && canBeAggressive) // if playerdetected, and bat is not aggressive and canBeAggressive
         {
-            isAggressive = true;
-            canBeAggressive = false;
-            destination = player.transform.position;
+            isAggressive = true; // set isAggressive to true
+            canBeAggressive = false; // set canBeAggressive to false
+            destination = player.transform.position; // and set the destination to the players last position
         }
 
-        if (isAggressive)
+        if (isAggressive) // if bat is aggressive
         {
-            transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime); // change its position from initial pos. to destination.
 
-            if(Vector2.Distance(transform.position, destination) < .1f)
+            if(Vector2.Distance(transform.position, destination) < .1f) // if the distance between its position and destination is very small
             {
-                isAggressive = false;
+                isAggressive = false; // set isaggressive to false
                 int i = Random.Range(0, idlePoints.Length);
 
-                destination = idlePoints[i].position;
-                speed *= .5f;
+                destination = idlePoints[i].position; // then set its destination to a random idle point
+                speed *= .5f; // make it slow when go to idlePoint
             }
         }
 
-        else
+        else // if not aggressive
         {
             transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
 
             if(Vector2.Distance(transform.position,destination) < .1f)
             {
-                if (!canBeAggressive)
+                if (!canBeAggressive) // if can not be aggressive, then set the idle counter to idleTime
                     idleCounter = idleTime;
                 canBeAggressive = true;
                 speed = defaultSpeed;
@@ -79,7 +79,7 @@ public class Enemy_Bat : Enemy
 
     }
 
-    private void FlipController()
+    private void FlipController() //flip controller
     {
         if (facingDirection == -1 && transform.position.x < destination.x)
             Flip();
@@ -87,7 +87,7 @@ public class Enemy_Bat : Enemy
             Flip();
     }
 
-    protected override void OnDrawGizmos()
+    protected override void OnDrawGizmos() // gizmoss
     {
         base.OnDrawGizmos();
         Gizmos.DrawWireSphere(transform.position, checkRadius);
