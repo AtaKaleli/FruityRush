@@ -64,10 +64,7 @@ public class Enemy_Trunk : Enemy
                 moveTimeCounter = moveTime;
 
             }
-            else
-            {
-                MoveBackwards(1.5f);
-            }
+           
             
 
 
