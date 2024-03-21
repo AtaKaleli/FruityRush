@@ -216,6 +216,7 @@ public class Player : MonoBehaviour
 
         isKnocked = true; //after entering this fucntion, make isKnocked true and canBeKnocked false
         canBeKnocked = false;
+        GetComponent<CameraShakeFX>().ScreenShake(-facingDirection);
 
         //those are the knock back directions for player after they got damage 
         #region Define horizontal direction for knockback 
