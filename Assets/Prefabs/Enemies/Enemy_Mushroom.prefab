@@ -165,7 +165,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -208,6 +208,10 @@ MonoBehaviour:
   wallCheckDistance: 0.88
   groundCheck: {fileID: 5027820007271384871}
   wallCheck: {fileID: 5027820005311452237}
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 0
+  playerDetectionDistance: 0
   invincible: 0
   speed: 2
   idleTime: 1
