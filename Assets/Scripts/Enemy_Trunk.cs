@@ -28,12 +28,12 @@ public class Enemy_Trunk : Enemy
 
     [SerializeField] private float retreatTime;
     private float retreatTimeCounter;
-    private Transform player;
+    
 
     protected override void Start()
     {
         base.Start();
-        player = GameObject.Find("Player").transform;
+        
 
     }
 

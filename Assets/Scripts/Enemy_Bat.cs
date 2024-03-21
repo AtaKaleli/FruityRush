@@ -11,7 +11,7 @@ public class Enemy_Bat : Enemy
     private Vector2 destination;
     private bool canBeAggressive = true;
     private bool isPlayerDetected;
-    private Transform player;
+    
 
     [Header("Player Detection")] // player detection 
     [SerializeField] private float checkRadius;
@@ -24,7 +24,7 @@ public class Enemy_Bat : Enemy
     protected override void Start()
     {
         base.Start();
-        player = GameObject.Find("Player").transform;
+        
         defaultSpeed = speed;
         destination = idlePoints[0].position;
     }
@@ -43,7 +43,15 @@ public class Enemy_Bat : Enemy
         {
             isAggressive = true; // set isAggressive to true
             canBeAggressive = false; // set canBeAggressive to false
-            destination = player.transform.position; // and set the destination to the players last position
+
+            if(player != null)
+                destination = player.transform.position; // and set the destination to the players last position
+            else
+            {
+                isAggressive = false;
+                canBeAggressive = true;
+            }
+        
         }
 
         if (isAggressive) // if bat is aggressive
@@ -81,6 +89,9 @@ public class Enemy_Bat : Enemy
 
     private void FlipController() //flip controller
     {
+        if (player == null)
+            return;
+
         if (facingDirection == -1 && transform.position.x < destination.x)
             Flip();
         else if (facingDirection == 1 && transform.position.x > destination.x)

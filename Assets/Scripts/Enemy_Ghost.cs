@@ -9,7 +9,7 @@ public class Enemy_Ghost : Enemy
     [SerializeField] private float activeTime;
                      private float activeTimeCounter = 4f;
 
-    private Transform player;
+    
     private SpriteRenderer sr;
 
     [SerializeField] private float[] xOffset;
@@ -17,7 +17,7 @@ public class Enemy_Ghost : Enemy
     protected override void Start()
     {
         base.Start();
-        player = GameObject.Find("Player").transform;
+        
         sr = GetComponent<SpriteRenderer>();
 
         isAggressive = true;
@@ -29,16 +29,23 @@ public class Enemy_Ghost : Enemy
 
     private void Update()
     {
+
+        if (player == null)
+        {
+            anim.SetTrigger("disappear");
+            return;
+        }
+
         activeTimeCounter -= Time.deltaTime;
         idleCounter -= Time.deltaTime;
 
 
-        if(activeTimeCounter > 0)
+        if (activeTimeCounter > 0)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
 
-        if(activeTimeCounter<0 && idleCounter < 0 && isAggressive)
+        if (activeTimeCounter < 0 && idleCounter < 0 && isAggressive)
         {
             anim.SetTrigger("disappear");
             isAggressive = false;
@@ -50,15 +57,22 @@ public class Enemy_Ghost : Enemy
             anim.SetTrigger("appear");
             isAggressive = true;
             activeTimeCounter = activeTime;
-            
+
         }
 
+        FlipController();
+
+    }
+
+    private void FlipController()
+    {
+        if (player == null)
+            return;
 
         if (facingDirection == -1 && transform.position.x < player.transform.position.x)
             Flip();
         else if (facingDirection == 1 && transform.position.x > player.transform.position.x)
             Flip();
-
     }
 
     private void ChoosePosition()

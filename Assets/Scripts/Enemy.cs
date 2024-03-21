@@ -7,6 +7,7 @@ public class Enemy : Danger
 
     protected Animator anim;
     protected Rigidbody2D rb;
+    protected Transform player;
 
     protected int facingDirection = -1; // facing direction of enemies, 1 means face right, -1 means face left
 
@@ -38,6 +39,7 @@ public class Enemy : Danger
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        player = PlayerManager.instance.currentPlayer.transform;
 
         if (groundCheck == null)
             groundCheck = transform;

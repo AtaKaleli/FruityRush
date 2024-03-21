@@ -9,7 +9,7 @@ public class Enemy_Bee : Enemy
     [SerializeField] private Transform playerCheck;
 
     private bool isPlayerDetected;
-    private Transform player;
+    
     private float defaultSpeed;
 
     [SerializeField] private float yOffset;
@@ -23,7 +23,7 @@ public class Enemy_Bee : Enemy
     protected override void Start()
     {
         base.Start();
-        player = GameObject.Find("Player").transform;
+        
         defaultSpeed = speed;
     }
 
@@ -31,10 +31,14 @@ public class Enemy_Bee : Enemy
     // Update is called once per frame
     void Update()
     {
+
+
         idleCounter -= Time.deltaTime; //if the bee is on the idle counter, it will not do anything, just stays in the idle.
         if (idleCounter > 0)
             return;
 
+        if (player == null)
+            return;
 
         isPlayerDetected = Physics2D.OverlapCircle(playerCheck.position, checkRadius, whoIsPlayer); // the area where player is detected
 
