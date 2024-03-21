@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
 
     [SerializeField] private GameObject playerPref;
-    [SerializeField] private Transform respawnPoint;
+    public Transform respawnPoint;
     public GameObject currentPlayer;
 
 
@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    private void PlayerRespawn()
+    public void PlayerRespawn()
     {
         if (currentPlayer == null)
             currentPlayer = Instantiate(playerPref, respawnPoint.position, Quaternion.identity);
