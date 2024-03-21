@@ -293,7 +293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518033859}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.51, y: -8.24, z: 0}
+  m_LocalPosition: {x: -0.64, y: -10.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -315,6 +315,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f044675f0ebca54faabe213a401c294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckDistance: 1
+  wallCheckDistance: 1
+  groundCheck: {fileID: 1864862042}
+  wallCheck: {fileID: 975336360}
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 256
+  playerDetectionDistance: 15
+  invincible: 0
+  speed: 3
+  idleTime: 2
 --- !u!61 &518033863
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -672,7 +686,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975336359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.008, y: -0.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12851,7 +12865,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1864862041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.87, y: -0.024, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
