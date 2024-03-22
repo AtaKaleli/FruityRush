@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
 
     [Header("GroundCollisionChecks")]
     [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private LayerMask whatIsWall;
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private Transform enemyCheck;
     [SerializeField] private float enemyCheckRadius;
@@ -276,7 +277,7 @@ public class Player : MonoBehaviour
     private void CollisionChecks()
     {
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround); // raycasts the ground so we can get player is on the ground
-        isTouchingWall = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);// raycasts the ground so we can get player is touching to wall
+        isTouchingWall = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, wallCheckDistance, whatIsWall);// raycasts the ground so we can get player is touching to wall
 
         if (isTouchingWall && rb.velocity.y < 0) // if player is touching wall and he is going down, then allow he to do wallSlide
         {
