@@ -32,6 +32,8 @@ public class Enemy_Rhino : Enemy
     void Update()
     {
 
+
+        
         
         if (playerDetected) // if rhino detects player, then make him aggressive
             isAggressive = true;
