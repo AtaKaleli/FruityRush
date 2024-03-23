@@ -19975,6 +19975,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1268443570}
     m_Modifications:
+    - target: {fileID: 7990257262429734838, guid: 66a6c638c81c9c64fb9d60ff6ca96ce4, type: 3}
+      propertyPath: myFruitType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990257262429734840, guid: 66a6c638c81c9c64fb9d60ff6ca96ce4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7293598183456022363, guid: 1ddc9afd21fec77489b1248d18f31b68, type: 3}
     - target: {fileID: 7990257262429734841, guid: 66a6c638c81c9c64fb9d60ff6ca96ce4, type: 3}
       propertyPath: m_RootOrder
       value: 0
