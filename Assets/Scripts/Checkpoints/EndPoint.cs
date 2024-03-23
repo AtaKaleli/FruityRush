@@ -12,6 +12,7 @@ public class EndPoint : MonoBehaviour
         if(collision.tag == "Player")
         {
             GetComponent<Animator>().SetTrigger("active");
+            GameManager.instance.SaveBestTime();
         }
     }
 }

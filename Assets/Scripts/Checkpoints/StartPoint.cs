@@ -14,6 +14,10 @@ public class StartPoint : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+
+        if (!GameManager.instance.startTime)
+            GameManager.instance.startTime = true;
+
         if(collision.tag == "Player")
         {
 
