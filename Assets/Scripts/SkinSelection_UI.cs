@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SkinSelection_UI : MonoBehaviour
@@ -7,6 +8,30 @@ public class SkinSelection_UI : MonoBehaviour
     [SerializeField] private Animator anim;
     private int skinID;
     private int previousID;
+
+    [SerializeField] private bool[] skinPurchased;
+    [SerializeField] private GameObject buyButton;
+    [SerializeField] private GameObject equipButton;
+    [SerializeField] private int[] skinPrice;
+
+    public void SetupSkinInfo()
+    {
+        if (skinPurchased[skinID])
+        {
+            buyButton.SetActive(false);
+            equipButton.SetActive(true);
+        }
+        else
+        {
+            buyButton.SetActive(true);
+            equipButton.SetActive(false);
+        }
+
+        if (!skinPurchased[skinID])
+            buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Price: " + skinPrice[skinID].ToString();
+
+
+    }
 
     private void Start()
     {
@@ -31,6 +56,7 @@ public class SkinSelection_UI : MonoBehaviour
             skinID = 0;
         anim.SetLayerWeight(previousID, 0); // set chosen fruit type layer weight to 1
         anim.SetLayerWeight(skinID, 1); // set chosen fruit type layer weight to 1
+        SetupSkinInfo();
     }
 
     public void PreviousSkin()
@@ -41,6 +67,21 @@ public class SkinSelection_UI : MonoBehaviour
             skinID = 3;
         anim.SetLayerWeight(previousID, 0); // set chosen fruit type layer weight to 1
         anim.SetLayerWeight(skinID, 1); // set chosen fruit type layer weight to 1
+        SetupSkinInfo();
+
     }
+
+
+    public void Buy()
+    {
+        skinPurchased[skinID] = true;
+        SetupSkinInfo();
+    }
+
+    public void Equip()
+    {
+        print("Equiped");
+    }
+
 
 }
