@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour
 
     public void LevelLoader(string sceneName)
     {
+        GameManager.instance.SaveGameDiffuculty();
         SceneManager.LoadScene(sceneName);
     }
 

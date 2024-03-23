@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject currentPlayer;
     public int chosenSkinID;
 
+    public int collectedFruits;
     private void Awake()
     {
 

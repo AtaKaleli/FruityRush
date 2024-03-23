@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    public int fruitCounter;
+    
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -221,12 +221,17 @@ public class Player : MonoBehaviour
         GetComponent<CameraShakeFX>().ScreenShake(-facingDirection);
 
 
-        //player dies if s/he has 0 or less fruit and took damage
-        fruitCounter--;
-        if(fruitCounter < 0)
+        if(GameManager.instance.levelDifficulty > 1)
         {
-            Destroy(gameObject);
+            //player dies if s/he has 0 or less fruit and took damage
+            PlayerManager.instance.collectedFruits--;
+            if (PlayerManager.instance.collectedFruits < 0)
+            {
+                Destroy(gameObject);
+            }
         }
+
+       
 
         //those are the knock back directions for player after they got damage 
         #region Define horizontal direction for knockback 

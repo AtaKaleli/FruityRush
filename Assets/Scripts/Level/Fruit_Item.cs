@@ -47,7 +47,7 @@ public class Fruit_Item : MonoBehaviour
 
         if(collision.GetComponent<Player>() != null)
         {
-            collision.GetComponent<Player>().fruitCounter++;
+            PlayerManager.instance.collectedFruits++;
             Destroy(gameObject);
         }
     }

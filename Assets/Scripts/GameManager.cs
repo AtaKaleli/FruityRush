@@ -6,9 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public int levelDifficulty;
+    
 
-
-    private void Start()
+    private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
 
@@ -18,6 +18,23 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
     }
 
-    
+    private void Start()
+    {
+        int gameDifficulty = PlayerPrefs.GetInt("GameDifficulty");
+        if (levelDifficulty == 0)
+            levelDifficulty = gameDifficulty;
+    }
+    private void Update()
+    {
+        
+    }
+
+    public void SaveGameDiffuculty()
+    {
+        PlayerPrefs.SetInt("GameDifficulty", levelDifficulty);
+    }
+
+
+
 
 }
