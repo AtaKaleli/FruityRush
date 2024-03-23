@@ -39,7 +39,7 @@ public class Enemy : Danger
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        if(PlayerManager.instance != null)
+        if(PlayerManager.instance.currentPlayer != null)
             player = PlayerManager.instance.currentPlayer.transform;
 
         if (groundCheck == null)

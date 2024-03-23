@@ -35,7 +35,7 @@ public class SkinSelection_UI : MonoBehaviour
 
     private void Start()
     {
-        
+        skinPurchased[0] = true;
 
         for (int i = 0; i < anim.layerCount; i++)
         {
@@ -44,9 +44,13 @@ public class SkinSelection_UI : MonoBehaviour
 
         
         anim.SetLayerWeight(skinID, 1); // set chosen fruit type layer weight to 1
+        SetupSkinInfo();
     }
 
-    
+    public void SetDefaultID()
+    {
+        skinID = 0;
+    }
 
     public void NextSkin()
     {
@@ -54,6 +58,7 @@ public class SkinSelection_UI : MonoBehaviour
         skinID++;
         if (skinID > 3)
             skinID = 0;
+
         anim.SetLayerWeight(previousID, 0); // set chosen fruit type layer weight to 1
         anim.SetLayerWeight(skinID, 1); // set chosen fruit type layer weight to 1
         SetupSkinInfo();
@@ -80,7 +85,10 @@ public class SkinSelection_UI : MonoBehaviour
 
     public void Equip()
     {
-        print("Equiped");
+       
+        
+        PlayerManager.instance.chosenSkinID = skinID;
+        
     }
 
 

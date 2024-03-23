@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Sequences;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject playerPref;
     public Transform respawnPoint;
     public GameObject currentPlayer;
-
+    public int chosenSkinID;
 
     private void Awake()
     {
@@ -29,6 +31,10 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerRespawn()
     {
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+            return;
+
+
         if (currentPlayer == null)
             currentPlayer = Instantiate(playerPref, respawnPoint.position, Quaternion.identity);
     }
