@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7846570796745204508, guid: 9f0d59bec03f23a429d67e0a0ed5b9b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 64.26921
+      value: 60.7
       objectReference: {fileID: 0}
     - target: {fileID: 7846570796745204508, guid: 9f0d59bec03f23a429d67e0a0ed5b9b9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -655,6 +655,7 @@ MonoBehaviour:
   playerPref: {fileID: 3405996278113162969, guid: b4ae7e62783362e41b0bb808a7b2b6cf, type: 3}
   respawnPoint: {fileID: 901105014}
   currentPlayer: {fileID: 0}
+  chosenSkinID: 0
 --- !u!4 &1260302153
 Transform:
   m_ObjectHideFlags: 0
