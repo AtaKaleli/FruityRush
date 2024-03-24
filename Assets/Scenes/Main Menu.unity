@@ -3645,6 +3645,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelDifficulty: 0
+  timer: 0
+  startTime: 0
+  levelNumber: 0
 --- !u!1 &841584899
 GameObject:
   m_ObjectHideFlags: 0
@@ -6873,6 +6876,7 @@ MonoBehaviour:
   respawnPoint: {fileID: 0}
   currentPlayer: {fileID: 0}
   chosenSkinID: 0
+  collectedFruits: 0
 --- !u!4 &1260302153
 Transform:
   m_ObjectHideFlags: 0

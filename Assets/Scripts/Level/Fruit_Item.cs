@@ -21,25 +21,25 @@ public class Fruit_Item : MonoBehaviour
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Sprite[] fruitImage;
     public FruitType myFruitType;
-    private Animator anim;
+    [SerializeField] private Animator anim;
 
 
-    private void Start()
+
+    public void FruitSetup(int fruitIndex)
     {
-        anim = GetComponent<Animator>();
-
         for (int i = 0; i < anim.layerCount; i++)
         {
             anim.SetLayerWeight(i, 0); // set the weight of each layer to 0
         }
 
-        anim.SetLayerWeight(((int)myFruitType), 1); // set chosen fruit type layer weight to 1
+        anim.SetLayerWeight(fruitIndex, 1); // set chosen fruit type layer weight to 1
     }
 
+    /*
     private void OnValidate() // this function works even before the start function
     {
         sr.sprite = fruitImage[((int)myFruitType)];
-    }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
