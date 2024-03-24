@@ -66,5 +66,11 @@ public class GameManager : MonoBehaviour
         PlayerManager.instance.collectedFruits = 0;
     }
 
+    public void SaveLevelInfo()
+    {
+        int nextLevelNumber = levelNumber + 1;
+        PlayerPrefs.SetInt("Level" + nextLevelNumber + "Unlocked", 1);
+    }
+
 
 }

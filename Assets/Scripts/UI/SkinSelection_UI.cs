@@ -11,22 +11,25 @@ public class SkinSelection_UI : MonoBehaviour
 
     [SerializeField] private bool[] skinPurchased;
     [SerializeField] private GameObject buyButton;
-    [SerializeField] private GameObject equipButton;
+    [SerializeField] private GameObject selectButton;
     [SerializeField] private int[] skinPrice;
 
     [SerializeField] private TextMeshProUGUI bankText;
 
     public void SetupSkinInfo()
     {
+        skinPurchased[0] = true;
+        bankText.text = PlayerPrefs.GetInt("TotalFruitsCollected").ToString();
+
         if (skinPurchased[skinID])
         {
             buyButton.SetActive(false);
-            equipButton.SetActive(true);
+            selectButton.SetActive(true);
         }
         else
         {
             buyButton.SetActive(true);
-            equipButton.SetActive(false);
+            selectButton.SetActive(false);
         }
 
         if (!skinPurchased[skinID])
@@ -35,9 +38,20 @@ public class SkinSelection_UI : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        SetupSkinInfo();
+    }
+
+    private void OnDisable()
+    {
+        selectButton.SetActive(false);
+    }
+
     private void Start()
     {
         skinPurchased[0] = true;
+        bankText.text = PlayerPrefs.GetInt("TotalFruitsCollected").ToString();
 
         for (int i = 0; i < anim.layerCount; i++)
         {
@@ -48,7 +62,6 @@ public class SkinSelection_UI : MonoBehaviour
         anim.SetLayerWeight(skinID, 1); // set chosen fruit type layer weight to 1
         SetupSkinInfo();
 
-        bankText.text = PlayerPrefs.GetInt("TotalFruitsCollected").ToString();
     }
 
     public void SetDefaultID()
@@ -93,6 +106,11 @@ public class SkinSelection_UI : MonoBehaviour
         
         PlayerManager.instance.chosenSkinID = skinID;
         
+    }
+
+    public void SwitchSelectButton(GameObject newButton)
+    {
+        selectButton = newButton;
     }
 
 

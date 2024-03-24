@@ -14,6 +14,7 @@ public class EndPoint : MonoBehaviour
             GetComponent<Animator>().SetTrigger("active");
             GameManager.instance.SaveBestTime();
             GameManager.instance.SaveCollectedFruits();
+            GameManager.instance.SaveLevelInfo();
         }
     }
 }

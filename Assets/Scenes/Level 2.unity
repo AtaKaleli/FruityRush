@@ -655,6 +655,8 @@ MonoBehaviour:
   playerPref: {fileID: 3405996278113162969, guid: b4ae7e62783362e41b0bb808a7b2b6cf, type: 3}
   respawnPoint: {fileID: 901105014}
   currentPlayer: {fileID: 0}
+  chosenSkinID: 0
+  collectedFruits: 0
 --- !u!4 &1260302153
 Transform:
   m_ObjectHideFlags: 0
@@ -19753,11 +19755,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2185473136117826150, guid: ad413c9ee73360943aa52dc8f5963d1b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.5600567
+      value: 12.6
       objectReference: {fileID: 0}
     - target: {fileID: 2185473136117826150, guid: ad413c9ee73360943aa52dc8f5963d1b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.135262
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 2185473136117826150, guid: ad413c9ee73360943aa52dc8f5963d1b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19981,11 +19983,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7990257262429734841, guid: 66a6c638c81c9c64fb9d60ff6ca96ce4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.790056
+      value: -2.3
       objectReference: {fileID: 0}
     - target: {fileID: 7990257262429734841, guid: 66a6c638c81c9c64fb9d60ff6ca96ce4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.104739
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 7990257262429734841, guid: 66a6c638c81c9c64fb9d60ff6ca96ce4, type: 3}
       propertyPath: m_LocalPosition.z
