@@ -54,9 +54,7 @@ public class Ingame_UI : MonoBehaviour
     public void EndGameScoreInfo()
     {
         
-        print(PlayerPrefs.GetFloat("Level " + GameManager.instance.levelNumber + "BestTime", 999));
-        print(GameManager.instance.timer);
-        print(PlayerManager.instance.collectedFruits);
+        
         
 
         endGameBestTime.text = "Best time: " + PlayerPrefs.GetFloat("Level " + GameManager.instance.levelNumber + "BestTime",999).ToString("#0.00") + " sec";
