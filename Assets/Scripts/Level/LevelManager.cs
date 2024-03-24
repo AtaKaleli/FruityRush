@@ -60,8 +60,11 @@ public class LevelManager : MonoBehaviour
             if (unlocked)
                 PlayerPrefs.SetInt("Level" + i + "Unlocked", 0);
             else
+            {
                 SceneManager.LoadScene("Level 1");
-            return;
+                return;
+
+            }
 
             
 

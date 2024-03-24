@@ -18,12 +18,22 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        
+        
         DontDestroyOnLoad(this.gameObject);
 
         if (instance == null)
+        {
+            
             instance = this;
+
+        }
         else
+        {
+            
+ 
             Destroy(this.gameObject);
+        }
     }
 
     private void Start()
@@ -32,7 +42,8 @@ public class GameManager : MonoBehaviour
         if (levelDifficulty == 0)
             levelDifficulty = gameDifficulty;
 
-       
+      
+
     }
     private void Update()
     {
@@ -50,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveBestTime()
     {
-        float previousRecord = PlayerPrefs.GetFloat("Level " + levelNumber + "BestTime");
+        float previousRecord = PlayerPrefs.GetFloat("Level " + levelNumber + "BestTime",999);
         startTime = false;
         if(timer < previousRecord)
             PlayerPrefs.SetFloat("Level " + levelNumber + "BestTime", timer);

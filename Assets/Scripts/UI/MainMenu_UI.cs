@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class MainMenu_UI : MonoBehaviour
 {
-    
+
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
     public void SwitchMenuTo(GameObject uiMenu)
     {
         for (int i = 0; i < transform.childCount; i++)
