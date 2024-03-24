@@ -5,21 +5,32 @@ using UnityEngine;
 
 public class SkinSelection_UI : MonoBehaviour
 {
-    [SerializeField] private Animator anim;
+
+    [SerializeField] private bool[] skinPurchased;
+    [SerializeField] private int[] skinPrice;
     private int skinID;
     private int previousID;
 
-    [SerializeField] private bool[] skinPurchased;
+
+
+    [Header("Components")]
     [SerializeField] private GameObject buyButton;
     [SerializeField] private GameObject selectButton;
-    [SerializeField] private int[] skinPrice;
-
+    [SerializeField] private Animator anim;
     [SerializeField] private TextMeshProUGUI bankText;
+
 
     public void SetupSkinInfo()
     {
         skinPurchased[0] = true;
         bankText.text = PlayerPrefs.GetInt("TotalFruitsCollected").ToString();
+
+        for (int i = 1; i < skinPurchased.Length; i++)
+        {
+            bool skinUnlocked = PlayerPrefs.GetInt("SkinPurchased" + i) == 1;
+            if (skinUnlocked)
+                skinPurchased[i] = true;
+        }
 
         if (skinPurchased[skinID])
         {
@@ -38,20 +49,12 @@ public class SkinSelection_UI : MonoBehaviour
 
     }
 
-    private void OnEnable()
-    {
-        SetupSkinInfo();
-    }
-
-    private void OnDisable()
-    {
-        selectButton.SetActive(false);
-    }
 
     private void Start()
     {
-        skinPurchased[0] = true;
-        bankText.text = PlayerPrefs.GetInt("TotalFruitsCollected").ToString();
+
+        
+      
 
         for (int i = 0; i < anim.layerCount; i++)
         {
@@ -64,9 +67,31 @@ public class SkinSelection_UI : MonoBehaviour
 
     }
 
+    public bool EnoughMoney()
+    {
+        int totalFruits = PlayerPrefs.GetInt("TotalFruitsCollected");
+
+        if(totalFruits > skinPrice[skinID])
+        {
+            totalFruits -= skinPrice[skinID];
+            PlayerPrefs.SetInt("TotalFruitsCollected", totalFruits);
+            return true;
+        }
+        return false;
+    }
+
     public void SetDefaultID()
     {
         skinID = 0;
+    }
+    private void OnEnable()
+    {
+        SetupSkinInfo();
+    }
+
+    private void OnDisable()
+    {
+        selectButton.SetActive(false);
     }
 
     public void NextSkin()
@@ -96,8 +121,14 @@ public class SkinSelection_UI : MonoBehaviour
 
     public void Buy()
     {
-        skinPurchased[skinID] = true;
-        SetupSkinInfo();
+        if (EnoughMoney())
+        {
+
+            PlayerPrefs.SetInt("SkinPurchased" + skinID, 1);
+            SetupSkinInfo();
+        }
+        else
+            print("Not enough money");
     }
 
     public void Equip()
