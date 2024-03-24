@@ -14,6 +14,8 @@ public class SkinSelection_UI : MonoBehaviour
     [SerializeField] private GameObject equipButton;
     [SerializeField] private int[] skinPrice;
 
+    [SerializeField] private TextMeshProUGUI bankText;
+
     public void SetupSkinInfo()
     {
         if (skinPurchased[skinID])
@@ -45,6 +47,8 @@ public class SkinSelection_UI : MonoBehaviour
         
         anim.SetLayerWeight(skinID, 1); // set chosen fruit type layer weight to 1
         SetupSkinInfo();
+
+        bankText.text = PlayerPrefs.GetInt("TotalFruitsCollected").ToString();
     }
 
     public void SetDefaultID()

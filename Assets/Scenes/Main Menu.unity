@@ -1307,6 +1307,7 @@ MonoBehaviour:
   buyButton: {fileID: 449725254}
   equipButton: {fileID: 1027023781}
   skinPrice: 0000000032000000fa000000e8030000
+  bankText: {fileID: 267125313}
 --- !u!1 &356295764
 GameObject:
   m_ObjectHideFlags: 0

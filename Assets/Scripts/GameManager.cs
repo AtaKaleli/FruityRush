@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [Header("Level Info")]
     public int levelNumber;
 
+  
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
         if (levelDifficulty == 0)
             levelDifficulty = gameDifficulty;
 
-        print(PlayerPrefs.GetFloat("Level " + levelNumber + "BestTime"));
+       
     }
     private void Update()
     {
@@ -53,6 +55,15 @@ public class GameManager : MonoBehaviour
         if(timer < previousRecord)
             PlayerPrefs.SetFloat("Level " + levelNumber + "BestTime", timer);
         timer = 0;
+    }
+
+    public void SaveCollectedFruits()
+    {
+        int totalFruits = PlayerPrefs.GetInt("TotalFruitsCollected");
+        int newFruits = totalFruits + PlayerManager.instance.collectedFruits;
+        PlayerPrefs.SetInt("TotalFruitsCollected", newFruits);
+        PlayerPrefs.SetInt("Level" + levelNumber + "FruitsCollected", PlayerManager.instance.collectedFruits);
+        PlayerManager.instance.collectedFruits = 0;
     }
 
 
