@@ -8,6 +8,11 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
+    [Header("ParticleFX")]
+    [SerializeField] private ParticleSystem dustFX;
+
+
+
     [Header("PlayerMove")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -277,6 +282,7 @@ public class Player : MonoBehaviour
 
     private void WallJump()// when player making wall jump, do not allow he to move
     {
+        dustFX.Play();
         canMove = false;
         rb.velocity = new Vector2(5 * -facingDirection, jumpForce);// set the velocity of wall jump
     }
@@ -291,6 +297,7 @@ public class Player : MonoBehaviour
 
     private void Flip() // flip the player. change the facing direction every time we get in this func. also rotate the player by 180 deg.
     {
+        dustFX.Play();
         facingDirection = facingDirection * -1;
         isFacingRight = !isFacingRight;
         transform.Rotate(0, 180, 0);
@@ -298,6 +305,7 @@ public class Player : MonoBehaviour
 
     private void FlipController() //controls the flip of the player
     {
+        
         if (isFacingRight && rb.velocity.x < 0)
             Flip();
         else if (!isFacingRight && rb.velocity.x > 0)
@@ -325,6 +333,10 @@ public class Player : MonoBehaviour
     private void Jump() // simple jump function
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        if (isGrounded)
+            dustFX.Play();
+
+        
     }
 
     private void OnDrawGizmos() // draws gizmos lines for better visualization
