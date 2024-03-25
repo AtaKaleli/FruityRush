@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class StartPoint : MonoBehaviour
 {
-
+    [SerializeField] private Transform resPoint;
 
     private void Awake()
     {
-        PlayerManager.instance.respawnPoint = transform;
+        PlayerManager.instance.respawnPoint = resPoint;
         PlayerManager.instance.PlayerRespawn();
     }
 
