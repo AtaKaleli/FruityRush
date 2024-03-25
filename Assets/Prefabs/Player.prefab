@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3405996277748418863}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: -0.899, z: 0}
+  m_LocalPosition: {x: 0.01, y: -0.98, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -166,7 +166,7 @@ MonoBehaviour:
     m_Bits: 64
   groundCheckDistance: 1.1
   enemyCheck: {fileID: 3405996277748418862}
-  enemyCheckRadius: 0.25
+  enemyCheckRadius: 0.4
   wallCheckDistance: 0.7
   knockbackDirection: {x: 5, y: 10}
   knockBackProtectionTime: 1

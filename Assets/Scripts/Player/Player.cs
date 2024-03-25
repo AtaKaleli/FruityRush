@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform enemyCheck;
     [SerializeField] private float enemyCheckRadius;
 
-
+    private bool flipping;
     private bool isGrounded;
     private bool canDoubleJump = true;
 
@@ -143,6 +143,8 @@ public class Player : MonoBehaviour
 
                 if (rb.velocity.y < 0) //kill enemy only if we are falling and enemy is not invincible
                 {
+                    
+                    anim.SetBool("flipping", true);
                     newEnemy.Damage(); // call the damage function of the enemy, which triggers the gotHit animation 
                     //after gotHit animations ends, the destroyMe func will be called by addition of event to the end of hit animation
 
@@ -152,6 +154,11 @@ public class Player : MonoBehaviour
 
             }
         }
+    }
+
+    public void SetFlippingFalse()
+    {
+        anim.SetBool("flipping", false);
     }
 
     private void AnimationControllers() // control the animations of player
