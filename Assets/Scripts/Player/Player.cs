@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     private float cayoteJumpCounter;
     private bool canHaveCayoteJump;
 
-
+    private float defaultGravityScale;
     private float defaultJumpForce;
     private bool canMove;
 
@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
 
     private bool isKnocked;
     private bool canBeKnocked = true;
+    private bool canBeControlled;
 
 
     void Start()
@@ -61,6 +62,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         defaultJumpForce = jumpForce; // default jump force equals to jump force.
+        defaultGravityScale = rb.gravityScale;
+        rb.gravityScale = 0;
     }
 
 
@@ -163,10 +166,22 @@ public class Player : MonoBehaviour
         anim.SetBool("isWallDetected", isTouchingWall);
 
         anim.SetBool("isKnocked", isKnocked);
+
+        anim.SetBool("canBeControlled", canBeControlled);
+    }
+    
+    public void MakeControlled()
+    {
+        rb.gravityScale = defaultGravityScale;
+        canBeControlled = true;
     }
 
     private void InputChecks() // take the x and y dir. inputs
     {
+
+        if (!canBeControlled)
+            return;
+
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
