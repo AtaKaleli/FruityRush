@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Sequences;
@@ -13,7 +14,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
     public Ingame_UI ingame_UI;
 
-
+    [SerializeField] private GameObject fruitPref;
     [SerializeField] private GameObject playerPref;
     [SerializeField] private GameObject deathFXPref;
     public Transform respawnPoint;
@@ -21,6 +22,7 @@ public class PlayerManager : MonoBehaviour
     public int chosenSkinID;
 
     public int collectedFruits;
+   
 
 
     [SerializeField] private CinemachineImpulseSource impulse;
@@ -81,17 +83,25 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
+    private void DropFruit()
+    {
+        int fruitIndex = UnityEngine.Random.Range(0, Enum.GetNames(typeof(FruitType)).Length);
+
+        GameObject newFruit = Instantiate(fruitPref, currentPlayer.transform.position, Quaternion.identity);
+        newFruit.GetComponent<Fruit_DropByPlayer>().FruitSetup(fruitIndex);
+
+        Destroy(newFruit, 20);
+    }
+
     public void OnTakingDamage()
     {
 
         if (HaveEnoughFruits())
         {
             
-            if (GameManager.instance.levelDifficulty == 2)
-            {
-                print("fruit dropped");
-            }
-            
+            if (GameManager.instance.levelDifficulty != 1)
+                DropFruit();
+
         }
         else
         {
@@ -112,7 +122,10 @@ public class PlayerManager : MonoBehaviour
         else if (GameManager.instance.levelDifficulty == 2)
         {
             if (HaveEnoughFruits())
+            {
+                DropFruit();
                 Invoke("PlayerRespawn", 1f);
+            }
             else
                 ingame_UI.checkIfNotPaused();
         }

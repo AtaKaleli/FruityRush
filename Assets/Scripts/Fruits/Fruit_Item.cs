@@ -18,10 +18,10 @@ public enum FruitType
 public class Fruit_Item : MonoBehaviour
 {
 
-    [SerializeField] private SpriteRenderer sr;
+    [SerializeField] protected SpriteRenderer sr;
     [SerializeField] private Sprite[] fruitImage;
     public FruitType myFruitType;
-    [SerializeField] private Animator anim;
+    [SerializeField] protected Animator anim;
 
 
 
@@ -41,7 +41,7 @@ public class Fruit_Item : MonoBehaviour
         sr.sprite = fruitImage[((int)myFruitType)];
     }*/
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         
 
