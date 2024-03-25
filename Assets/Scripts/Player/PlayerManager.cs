@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Sequences;
@@ -15,6 +16,16 @@ public class PlayerManager : MonoBehaviour
     public int chosenSkinID;
 
     public int collectedFruits;
+
+
+    [SerializeField] private CinemachineImpulseSource impulse;
+
+    public void ScreenShake(int facingDir)
+    {
+        impulse.m_DefaultVelocity = new Vector3(1 * facingDir, 1);
+        impulse.GenerateImpulse();
+    }
+
     private void Awake()
     {
 

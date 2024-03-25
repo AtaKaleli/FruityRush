@@ -218,7 +218,7 @@ public class Player : MonoBehaviour
 
         isKnocked = true; //after entering this fucntion, make isKnocked true and canBeKnocked false
         canBeKnocked = false;
-        GetComponent<CameraShakeFX>().ScreenShake(-facingDirection);
+        PlayerManager.instance.ScreenShake(-facingDirection);
 
 
         if(GameManager.instance.levelDifficulty > 1)
