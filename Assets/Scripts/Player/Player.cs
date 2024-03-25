@@ -231,22 +231,17 @@ public class Player : MonoBehaviour
         if (!canBeKnocked) // If player cant be knocked, then return
             return;
 
-        isKnocked = true; //after entering this fucntion, make isKnocked true and canBeKnocked false
-        canBeKnocked = false;
-        PlayerManager.instance.ScreenShake(-facingDirection);
+        if (PlayerManager.instance.collectedFruits > 0 || GameManager.instance.levelDifficulty == 1)
+            PlayerManager.instance.ScreenShake(-facingDirection);
 
-
-        if(GameManager.instance.levelDifficulty > 1)
+        if (GameManager.instance.levelDifficulty > 1)
         {
-            //player dies if s/he has 0 or less fruit and took damage
-            PlayerManager.instance.collectedFruits--;
-            if (PlayerManager.instance.collectedFruits < 0)
-            {
-                Destroy(gameObject);
-            }
+            PlayerManager.instance.OnTakingDamage();
         }
 
-       
+        
+        isKnocked = true; //after entering this fucntion, make isKnocked true and canBeKnocked false
+        canBeKnocked = false;
 
         //those are the knock back directions for player after they got damage 
         #region Define horizontal direction for knockback 

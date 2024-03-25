@@ -31,6 +31,7 @@ public class Ingame_UI : MonoBehaviour
         GameManager.instance.levelNumber = SceneManager.GetActiveScene().buildIndex;
         Time.timeScale = 1;
         SwitchUI(inGameUI);
+        PlayerManager.instance.ingame_UI = this;
     }
 
     // Update is called once per frame
@@ -63,21 +64,21 @@ public class Ingame_UI : MonoBehaviour
     }
 
 
-    private bool checkIfNotPaused()
+    public void checkIfNotPaused()
     {
         if (!isGamePaused)
         {
             isGamePaused = true;
             Time.timeScale = 0;
             SwitchUI(pauseGameUI);
-            return true;
+            
         }
         else
         {
             isGamePaused = false;
             Time.timeScale = 1;
             SwitchUI(inGameUI);
-            return false;
+           
         }
     }
 
@@ -101,6 +102,8 @@ public class Ingame_UI : MonoBehaviour
     public void RestartCurrentLevel() { 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameManager.instance.timer = 0;
+        PlayerManager.instance.collectedFruits = 0;
+
     } 
     public void LoadNextLevel()
     {

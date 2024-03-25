@@ -8,7 +8,7 @@ public class DeadZone : MonoBehaviour
     {
         if(collision.GetComponent<Player>() != null)
         {
-            Destroy(collision.gameObject);
+            PlayerManager.instance.OnFalling();
         }
     }
 }
