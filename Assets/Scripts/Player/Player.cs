@@ -66,6 +66,9 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
+        ChangePlayerSkin();
+
         defaultJumpForce = jumpForce; // default jump force equals to jump force.
         defaultGravityScale = rb.gravityScale;
         rb.gravityScale = 0;
@@ -182,6 +185,17 @@ public class Player : MonoBehaviour
         anim.SetBool("canBeControlled", canBeControlled);
     }
     
+
+    private void ChangePlayerSkin()
+    {
+        for (int i = 0; i < anim.layerCount; i++)
+        {
+            anim.SetLayerWeight(i, 0); // set the weight of each layer to 0
+        }
+
+        anim.SetLayerWeight(PlayerManager.instance.chosenSkinID, 1); // set chosen fruit type layer weight to 1
+    }
+
     public void MakeControlled()
     {
         rb.gravityScale = defaultGravityScale;

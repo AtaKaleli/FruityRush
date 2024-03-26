@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         
-        
+
         DontDestroyOnLoad(this.gameObject);
 
         if (instance == null)
