@@ -6,11 +6,17 @@ public class MainMenu_UI : MonoBehaviour
 {
     [SerializeField] private GameObject continueButton;
 
+
+    private void Awake()
+    {
+        AudioManager.instance.PlayBGM(0);
+    }
     private void Start()
     {
         bool isNewGame = PlayerPrefs.GetInt("Level" + 2 + "Unlocked") == 1;
         continueButton.SetActive(isNewGame);
         Time.timeScale = 1;
+        
     }
     public void SwitchMenuTo(GameObject uiMenu)
     {

@@ -22,7 +22,7 @@ public class EndPoint : MonoBehaviour
             GameManager.instance.SaveBestTime();
             GameManager.instance.SaveCollectedFruits();
             GameManager.instance.SaveLevelInfo();
-            PlayerManager.instance.KillPlayer();
+            Destroy(collision.gameObject);
         }
     }
 }
