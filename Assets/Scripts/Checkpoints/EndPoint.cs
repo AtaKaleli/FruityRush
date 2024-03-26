@@ -16,12 +16,13 @@ public class EndPoint : MonoBehaviour
         if(collision.tag == "Player")
         {
             GetComponent<Animator>().SetTrigger("active");
+            AudioManager.instance.PlaySFX(6);
             inGame_UI.OnLevelFinished();
             inGame_UI.EndGameScoreInfo();
             GameManager.instance.SaveBestTime();
             GameManager.instance.SaveCollectedFruits();
             GameManager.instance.SaveLevelInfo();
-            Destroy(collision.gameObject);
+            PlayerManager.instance.KillPlayer();
         }
     }
 }

@@ -48,12 +48,14 @@ public class LevelManager : MonoBehaviour
 
     public void LevelLoader(string sceneName)
     {
+        AudioManager.instance.PlaySFX(4);
         GameManager.instance.SaveGameDiffuculty();
         SceneManager.LoadScene(sceneName);
     }
 
     public void LoadNewGame()
     {
+        AudioManager.instance.PlaySFX(4);
         for (int i = 2; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             bool unlocked = PlayerPrefs.GetInt("Level" + i + "Unlocked") == 1;
@@ -73,6 +75,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadContinueGame()
     {
+        AudioManager.instance.PlaySFX(4);
         for (int i = 1; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             bool unlocked = PlayerPrefs.GetInt("Level" + i + "Unlocked") == 1;

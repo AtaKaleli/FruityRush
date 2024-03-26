@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
 
                 if (rb.velocity.y < 0) //kill enemy only if we are falling and enemy is not invincible
                 {
-                    
+                    AudioManager.instance.PlaySFX(1);
                     anim.SetBool("flipping", true);
                     newEnemy.Damage(); // call the damage function of the enemy, which triggers the gotHit animation 
                     //after gotHit animations ends, the destroyMe func will be called by addition of event to the end of hit animation
@@ -254,6 +254,8 @@ public class Player : MonoBehaviour
 
     public void KnockedBack(Transform damageTransform)
     {
+
+        AudioManager.instance.PlaySFX(9);
         if (!canBeKnocked) // If player cant be knocked, then return
             return;
 
@@ -296,6 +298,7 @@ public class Player : MonoBehaviour
 
     private void WallJump()// when player making wall jump, do not allow he to move
     {
+        AudioManager.instance.PlaySFX(3);
         dustFX.Play();
         canMove = false;
         rb.velocity = new Vector2(5 * -facingDirection, jumpForce);// set the velocity of wall jump
@@ -346,6 +349,7 @@ public class Player : MonoBehaviour
 
     private void Jump() // simple jump function
     {
+        AudioManager.instance.PlaySFX(3);
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         if (isGrounded)
             dustFX.Play();

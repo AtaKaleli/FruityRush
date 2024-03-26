@@ -75,8 +75,11 @@ public class SkinSelection_UI : MonoBehaviour
         {
             totalFruits -= skinPrice[skinID];
             PlayerPrefs.SetInt("TotalFruitsCollected", totalFruits);
+
+            AudioManager.instance.PlaySFX(5);
             return true;
         }
+        AudioManager.instance.PlaySFX(6);
         return false;
     }
 
@@ -96,6 +99,7 @@ public class SkinSelection_UI : MonoBehaviour
 
     public void NextSkin()
     {
+        AudioManager.instance.PlaySFX(4);
         previousID = skinID;
         skinID++;
         if (skinID > 3)
@@ -108,6 +112,8 @@ public class SkinSelection_UI : MonoBehaviour
 
     public void PreviousSkin()
     {
+
+        AudioManager.instance.PlaySFX(4);
         previousID = skinID;
         skinID--;
         if (skinID < 0)
@@ -127,8 +133,7 @@ public class SkinSelection_UI : MonoBehaviour
             PlayerPrefs.SetInt("SkinPurchased" + skinID, 1);
             SetupSkinInfo();
         }
-        else
-            print("Not enough money");
+        
     }
 
     public void Equip()

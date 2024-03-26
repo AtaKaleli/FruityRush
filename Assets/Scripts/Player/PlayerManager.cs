@@ -60,11 +60,15 @@ public class PlayerManager : MonoBehaviour
 
 
         if (currentPlayer == null)
+        {
+            AudioManager.instance.PlaySFX(11);
             currentPlayer = Instantiate(playerPref, respawnPoint.position, Quaternion.identity);
+        }
     }
 
     public void KillPlayer()
     {
+        AudioManager.instance.PlaySFX(0);
         GameObject newDeathFX = Instantiate(deathFXPref, currentPlayer.transform.position, Quaternion.identity);
         Destroy(newDeathFX,.4f);
 

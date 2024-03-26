@@ -19,6 +19,7 @@ public class MainMenu_UI : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(false); // switch off everything
         }
 
+        AudioManager.instance.PlaySFX(4);
         uiMenu.SetActive(true); // switch on what we need
     }
 
