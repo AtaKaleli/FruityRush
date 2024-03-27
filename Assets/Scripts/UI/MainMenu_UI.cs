@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainMenu_UI : MonoBehaviour
 {
     [SerializeField] private GameObject continueButton;
-
+    [SerializeField] private VolumeController[] volumeController;
 
     private void Awake()
     {
@@ -16,6 +16,12 @@ public class MainMenu_UI : MonoBehaviour
         bool isNewGame = PlayerPrefs.GetInt("Level" + 2 + "Unlocked") == 1;
         continueButton.SetActive(isNewGame);
         Time.timeScale = 1;
+
+        for (int i = 0; i < volumeController.Length; i++)
+        {
+            volumeController[i].GetComponent<VolumeController>().SetupVolumeSlider();
+        }
+
         
     }
     public void SwitchMenuTo(GameObject uiMenu)

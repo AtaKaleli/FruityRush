@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SkinSelection_UI : MonoBehaviour
 {
-
+    
     [SerializeField] private bool[] skinPurchased;
     [SerializeField] private int[] skinPrice;
     private int skinID;
